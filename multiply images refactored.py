@@ -7,7 +7,7 @@ import glob
 
 def func_sizeChanging(image, x, dest_x, y, dest_y, mode):
 
-    if mode == 0:  # Crop image
+    if mode == 0:  # Crop imagea=
         changedImage = image[x:dest_x, y:dest_y]
         changedImage.astype(np.float16)
 

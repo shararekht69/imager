@@ -7,7 +7,7 @@ import moviepy.editor as mpe
 
 print("starting sth great..")
 
-####################### Functions: ############################
+####################### Functionss: ############################
 
 
 def func_imagesToVideo(int_videoNumberin30secPieces, str_imagesFolderAdress, str_destAdress):
