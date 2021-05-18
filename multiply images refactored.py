@@ -11,7 +11,7 @@ def func_sizeChanging(image, x, dest_x, y, dest_y, mode):
         changedImage = image[x:dest_x, y:dest_y]
         changedImage.astype(np.float16)
 
-    elif mode == 1:  # resize image
+    elif mode == 1:  # resize image for given mode
         dsize = (dest_x, dest_y)
         changedImage = cv2.resize(image, dsize)
 
