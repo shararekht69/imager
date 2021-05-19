@@ -77,7 +77,7 @@ def func_mergingImages(image1, image2):
 
 
 # --------------------- CODE: ------------------------------
-is_windows = False
+is_windows = True
 if is_windows:
     moonFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/moon-images/image"
     monalisaFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/monalisa-images/image"
@@ -98,24 +98,9 @@ else:
     finalImage = str(pathlib.Path().absolute())"/image/final-images/image"
 
 
-<< << << < HEAD
-moonFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/moon-images/image"
-monalisaFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/monalisa-images/image"
-resizedMoonFolderAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/resized-moon-images2/image"
-mergedImagesFolderAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/merged-images3/image"
-resizedMonalisaFolderAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/resized-monalisa/image"
-illusionFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/illusion-Images/image"
-resizedIllusionAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/resized-illusion-images/image"
-finalImage = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/final-images/image"
-
-# moonFileNameArray = glob.glob(moonFolderImagesAddress + '*.jpg')
-# monalisaFileNameArray = glob.glob(monalisaFolderImagesAddress + '*.jpg')
-# illusionFileNameArray = glob.glob(illusionFolderImagesAddress + '*.jpg')
-== == == =
-moonFileNameArray = glob.glob(moonFolderImagesAddress + '*.jpg')
-monalisaFileNameArray = glob.glob(monalisaFolderImagesAddress + '*.jpg')
-illusionFileNameArray = glob.glob(illusionFolderImagesAddress + '*.jpg')
->>>>>> > a9e5e0499a321614862d72cfdf113e1b29259f0f
+#moonFileNameArray = glob.glob(moonFolderImagesAddress + '*.jpg')
+#monalisaFileNameArray = glob.glob(monalisaFolderImagesAddress + '*.jpg')
+#illusionFileNameArray = glob.glob(illusionFolderImagesAddress + '*.jpg')
 
 count = 1
 for i in range(3):
