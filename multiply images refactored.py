@@ -132,11 +132,7 @@ for i in range(3):
     # print(illusionImg.shape)
 
 # -----process on moon images:
-<< << << < HEAD
 # nesbat = float(monalisaWidth/monalisaHeight)
-== == == =
-
-nesbat = float(monalisaWidth/monalisaHeight)
 >>>>>> > a9e5e0499a321614862d72cfdf113e1b29259f0f
 # print(nesbat)
 croppedMoonImage = func_sizeChanging(moonImg, 1, 720, 190, 1090, 0)
@@ -150,35 +146,33 @@ preprocessedMoonImg = func_preprocessingImage(resizedMoonImage)
 # monalisaTranslated = func_transformingImage(monalisaImg, 20, 1, moonWidth, moonHeight)
 newsize = (375, 300)
 resizedMonalisaImage = cv2.resize(monalisaImg, newsize)
-edgeMonalisa = cv2.Canny(resizedMonalisaImage, 20, 200)
+edgeMonalisa = cv2.Canny(resizedMonalisaImage, 20, 200, 3)
 
 monalisaTranslated = func_transformingImage(
     edgeMonalisa, 50, 35, moonWidth, moonHeight)
 
 mergedImg = func_mergingImages(preprocessedMoonImg, monalisaTranslated)
- # cv2.imwrite(mergedImagesFolderAddress, mergedImg)
- # cv2.imwrite("C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/mergedImg" +str(i) + '.jpg', mergedImg)
- # mergedImgHeight, mergedImgWidth, mergedImgLayers = mergedImg.shape
+# cv2.imwrite(mergedImagesFolderAddress, mergedImg)
+# cv2.imwrite("C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/mergedImg" +str(i) + '.jpg', mergedImg)
+# mergedImgHeight, mergedImgWidth, mergedImgLayers = mergedImg.shape
 
 
 # -----process on illusion images:
- croppedIllusionImage = func_sizeChanging(illusionImg, 0, 360, 95, 545, 0)
-  illusionImageHeight, illusionImageWidth, illusionImageLayes = croppedIllusionImage.shape
-   # cv2.imwrite("C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/illusion" + str(i) + '.jpg', croppedIllusionImage)
-   # print(croppedIllusionImage.shape)
+croppedIllusionImage = func_sizeChanging(illusionImg, 0, 360, 95, 545, 0)
+illusionImageHeight, illusionImageWidth, illusionImageLayes = croppedIllusionImage.shape
+# cv2.imwrite("C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/illusion" + str(i) + '.jpg', croppedIllusionImage)
+# print(croppedIllusionImage.shape)
 
-   for x in range(illusionImageHeight - 1):
-        for y in range(illusionImageWidth - 1):
-            # if mergedImage[x, y][0] != 0 and mergedImage[x, y][1] != 0 and mergedImage[x, y][2] != 0:
-            if func_isBlack(mergedImg[x, y], 20):
-                croppedIllusionImage[x, y][0] = mergedImg[x, y][0]
-                croppedIllusionImage[x, y][1] = mergedImg[x, y][1]
-                croppedIllusionImage[x, y][2] = mergedImg[x, y][2]
+for x in range(illusionImageHeight - 1):
+    for y in range(illusionImageWidth - 1):
+        # if mergedImage[x, y][0] != 0 and mergedImage[x, y][1] != 0 and mergedImage[x, y][2] != 0:
+        if func_isBlack(mergedImg[x, y], 20):
+            croppedIllusionImage[x, y][0] = mergedImg[x, y][0]
+            croppedIllusionImage[x, y][1] = mergedImg[x, y][1]
+            croppedIllusionImage[x, y][2] = mergedImg[x, y][2]
+cv2.imwrite(finalImage +
+            str(count) + ".jpg", croppedIllusionImage)
+# if i % 10 == 0:
+print("image " + str(count) + " saved!")
 
-    cv2.imwrite(finalImage +
-                str(count) + ".jpg", croppedIllusionImage)
-
-    # if i % 10 == 0:
-    print("image " + str(count) + " saved!")
-
-    count = count + 1
+count = count + 1
