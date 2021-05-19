@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import glob
+import pathlib
 
 
 # ---------------- FUNCTION: -----------------------
@@ -73,7 +74,7 @@ def func_mergingImages(image1, image2):
     return finalImg
 
 # --------------------- CODE: ------------------------------
-is_windows = True
+is_windows = False
 if is_windows:
     moonFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/moon-images/image"
     monalisaFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/monalisa-images/image"
@@ -84,14 +85,14 @@ if is_windows:
     resizedIllusionAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/resized-illusion-images/image"
     finalImage = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/final-images/image"
 else:
-    moonFolderImagesAddress = "../image/moon-images/image"
-    monalisaFolderImagesAddress = "../image/monalisa-images/image"
-    resizedMoonFolderAddress = "../image/resized-moon-images2/image"
-    mergedImagesFolderAddress = "../image/merged-images3/image"
-    resizedMonalisaFolderAddress = "../image/resized-monalisa/image"
-    illusionFolderImagesAddress = "../image/illusion-Images/image"
-    resizedIllusionAddress = "../image/resized-illusion-images/image"
-    finalImage = "../image/final-images/image"
+    moonFolderImagesAddress = str(pathlib.Path().absolute())"/image/moon-images/image"
+    monalisaFolderImagesAddress =str(pathlib.Path().absolute()) "/image/monalisa-images/image"
+    resizedMoonFolderAddress = str(pathlib.Path().absolute())"/image/resized-moon-images2/image"
+    mergedImagesFolderAddress = str(pathlib.Path().absolute())"/image/merged-images3/image"
+    resizedMonalisaFolderAddress = str(pathlib.Path().absolute())"/image/resized-monalisa/image"
+    illusionFolderImagesAddress = str(pathlib.Path().absolute())"/image/illusion-Images/image"
+    resizedIllusionAddress = str(pathlib.Path().absolute())"/image/resized-illusion-images/image"
+    finalImage = str(pathlib.Path().absolute())"/image/final-images/image"
 
 
 moonFileNameArray = glob.glob(moonFolderImagesAddress + '*.jpg')
