@@ -35,17 +35,17 @@ def func_preprocessingImage(image):
 
     for i in range(height):
         for j in range(width):
-            if (((image[i, j][0] + image[i, j][1] + image[i, j][2])/3) < 5):
+            if (((image[i, j][0] + image[i, j][1] + image[i, j][2])/3) < 10):
                 image[i, j][0] = 0
                 image[i, j][1] = 0
                 image[i, j][2] = 0
-    '''
+
     for i in range(270, 360):
         for j in range(300, 450):
             image[i, j][0] = 0
             image[i, j][1] = 0
             image[i, j][2] = 0
-    '''
+
     return image
 
 
@@ -79,7 +79,7 @@ mergedImagesFolderAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project
 resizedMonalisaFolderAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/resized-monalisa/image"
 illusionFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/illusion-Images/image"
 resizedIllusionAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/resized-illusion-images/image"
-finalImage = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/final-images2/image"
+finalImage = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/final-images/image"
 
 moonFileNameArray = glob.glob(moonFolderImagesAddress + '*.jpg')
 monalisaFileNameArray = glob.glob(monalisaFolderImagesAddress + '*.jpg')
@@ -88,7 +88,7 @@ illusionFileNameArray = glob.glob(illusionFolderImagesAddress + '*.jpg')
 count = 1
 for i in range(3):
     # reading images:
-    moonImg = cv2.imread(moonFolderImagesAddress + str(i+200) + '.jpg')
+    moonImg = cv2.imread(moonFolderImagesAddress + str(i+2000) + '.jpg')
     monalisaImg = cv2.imread(monalisaFolderImagesAddress + str(i+50) + '.jpg')
     illusionImg = cv2.imread(illusionFolderImagesAddress + str(i+1) + '.jpg')
 
@@ -105,7 +105,8 @@ for i in range(3):
     print(nesbat)
     croppedMoonImage = func_sizeChanging(moonImg, 1, 720, 190, 1090, 0)
     resizedMoonImage = func_sizeChanging(
-        croppedMoonImage, 1, 360, 1, 450, 1)
+        croppedMoonImage, 1, 450, 1, 360, 1)
+
     print(resizedMoonImage.shape)
 
     preprocessedMoonImg = func_preprocessingImage(resizedMoonImage)
@@ -121,14 +122,18 @@ for i in range(3):
 
     mergedImg = func_mergingImages(preprocessedMoonImg, monalisaTranslated)
     #cv2.imwrite(mergedImagesFolderAddress, mergedImg)
+    cv2.imwrite("C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/mergedImg" +
+                str(i) + '.jpg', mergedImg)
+    print(mergedImg.shape)
 
     # -----process on illusion images:
-    croppedIllusionImage = func_sizeChanging(illusionImg, 1, 360, 95, 545, 0)
+    croppedIllusionImage = func_sizeChanging(illusionImg, 0, 360, 95, 545, 0)
     illusionImageHeight, illusionImageWidth, illusionImageLayes = croppedIllusionImage.shape
-    # print(resizedIllusionImage.shape)
+    #cv2.imwrite("C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/illusion" + str(i) + '.jpg', croppedIllusionImage)
+    print(croppedIllusionImage.shape)
 
-    for x in range(illusionImageHeight-1):
-        for y in range(illusionImageWidth-1):
+    for x in range(illusionImageHeight - 1):
+        for y in range(illusionImageWidth - 1):
             # if mergedImage[x, y][0] != 0 and mergedImage[x, y][1] != 0 and mergedImage[x, y][2] != 0:
             if func_isBlack(mergedImg[x, y], 5):
                 croppedIllusionImage[x, y][0] = mergedImg[x, y][0]
