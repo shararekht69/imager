@@ -6,11 +6,7 @@ import glob
 import moviepy.editor as mpe
 
 print("starting sth great..")
-<<<<<<< HEAD
 #salaaaaaaaaaaaaaaam salam sharare aghaei dooset midareeee!###
-=======
-#salaaaaaaaaaaaaaaam! Ehsan!###
->>>>>>> 060ba4d24eb01e6c1aab8310aea295c3811a55c1
 ####################### Functionss: ############################
 
 
