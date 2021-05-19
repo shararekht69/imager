@@ -29,17 +29,26 @@ def func_transformingImage(image, x, y, dest_y, dest_x):
 
     return TranslatedImage
 
+def func_isBlack(pixel, tellorance):
+    #@Shery: it should be <= tellorance because in grayscale 0 means black, 255 means white
+    if ((pixel[0] + pixel[1] + pixel[2])/3) >= tellorance:
+        return True
+
+    else:
+        return False
 
 def func_preprocessingImage(image):
     height, width, layer = image.shape
 
     for i in range(height):
         for j in range(width):
+            #@shery: use if func_isBlack(image[x,y], 9): instead of following if condition
             if (((image[i, j][0] + image[i, j][1] + image[i, j][2])/3) < 10):
                 image[i, j][0] = 0
                 image[i, j][1] = 0
                 image[i, j][2] = 0
 
+    #@shery: added cm- removing watermarks and white written info at the bottom of image
     for i in range(270, 360):
         for j in range(300, 450):
             image[i, j][0] = 0
@@ -49,12 +58,6 @@ def func_preprocessingImage(image):
     return image
 
 
-def func_isBlack(pixel, tellorance):
-    if ((pixel[0] + pixel[1] + pixel[2])/3) >= tellorance:
-        return True
-
-    else:
-        return False
 
 
 def func_mergingImages(image1, image2):
