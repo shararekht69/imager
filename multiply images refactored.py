@@ -42,12 +42,13 @@ def func_preprocessingImage(image):
 
     for i in range(height):
         for j in range(width):
+            #@shery: use if func_isBlack(image[x,y], 9): instead of following if condition
             if (((image[i, j][0] + image[i, j][1] + image[i, j][2])/3) < 10):
                 image[i, j][0] = 0
                 image[i, j][1] = 0
                 image[i, j][2] = 0
 
-    #removing watermarks and white written info at the bottom of image
+    #@shery: added cm- removing watermarks and white written info at the bottom of image
     for i in range(270, 360):
         for j in range(300, 450):
             image[i, j][0] = 0
