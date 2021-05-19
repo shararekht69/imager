@@ -75,8 +75,28 @@ def func_mergingImages(image1, image2):
     return finalImg
 
 # --------------------- CODE: ------------------------------
+is_windows = False
+if is_windows:
+    moonFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/moon-images/image"
+    monalisaFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/monalisa-images/image"
+    resizedMoonFolderAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/resized-moon-images2/image"
+    mergedImagesFolderAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/merged-images3/image"
+    resizedMonalisaFolderAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/resized-monalisa/image"
+    illusionFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/illusion-Images/image"
+    resizedIllusionAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/resized-illusion-images/image"
+    finalImage = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/final-images/image"
+else:
+    moonFolderImagesAddress = "../image/moon-images/image"
+    monalisaFolderImagesAddress = "../image/monalisa-images/image"
+    resizedMoonFolderAddress = "../image/resized-moon-images2/image"
+    mergedImagesFolderAddress = "../image/merged-images3/image"
+    resizedMonalisaFolderAddress = "../image/resized-monalisa/image"
+    illusionFolderImagesAddress = "../image/illusion-Images/image"
+    resizedIllusionAddress = "../image/resized-illusion-images/image"
+    finalImage = "../image/final-images/image"
 
 
+<<<<<<< HEAD
 moonFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/moon-images/image"
 monalisaFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/monalisa-images/image"
 resizedMoonFolderAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/resized-moon-images2/image"
@@ -89,6 +109,11 @@ finalImage = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image
 #moonFileNameArray = glob.glob(moonFolderImagesAddress + '*.jpg')
 #monalisaFileNameArray = glob.glob(monalisaFolderImagesAddress + '*.jpg')
 #illusionFileNameArray = glob.glob(illusionFolderImagesAddress + '*.jpg')
+=======
+moonFileNameArray = glob.glob(moonFolderImagesAddress + '*.jpg')
+monalisaFileNameArray = glob.glob(monalisaFolderImagesAddress + '*.jpg')
+illusionFileNameArray = glob.glob(illusionFolderImagesAddress + '*.jpg')
+>>>>>>> a9e5e0499a321614862d72cfdf113e1b29259f0f
 
 count = 1
 for i in range(3):
@@ -106,7 +131,12 @@ for i in range(3):
     # print(illusionImg.shape)
 
 # -----process on moon images:
+<<<<<<< HEAD
     #nesbat = float(monalisaWidth/monalisaHeight)
+=======
+
+    nesbat = float(monalisaWidth/monalisaHeight)
+>>>>>>> a9e5e0499a321614862d72cfdf113e1b29259f0f
     # print(nesbat)
     croppedMoonImage = func_sizeChanging(moonImg, 1, 720, 190, 1090, 0)
     resizedMoonImage = func_sizeChanging(croppedMoonImage, 1, 450, 1, 360, 1)
