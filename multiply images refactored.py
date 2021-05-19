@@ -30,26 +30,30 @@ def func_transformingImage(image, x, y, dest_y, dest_x):
 
     return TranslatedImage
 
+
 def func_isBlack(pixel, tellorance):
-    #@Shery: it should be <= tellorance because in grayscale 0 means black, 255 means white
+    # @Shery: it should be <= tellorance because in grayscale 0 means black, 255 means white
     if ((pixel[0] + pixel[1] + pixel[2])/3) >= tellorance:
         return True
 
     else:
         return False
 
+
 def func_preprocessingImage(image):
     height, width, layer = image.shape
 
     for i in range(height):
         for j in range(width):
-            #@shery: use if func_isBlack(image[x,y], 9): instead of following if condition
+            # @shery: use if func_isBlack(image[x,y], 9): instead of following if condition
+            image = func_isBlack(image[i, j], 9)  # @ehsan: is it ok?
+            '''
             if (((image[i, j][0] + image[i, j][1] + image[i, j][2])/3) < 10):
                 image[i, j][0] = 0
                 image[i, j][1] = 0
                 image[i, j][2] = 0
-
-    #@shery: added cm- removing watermarks and white written info at the bottom of image
+            '''
+    # removing watermarks and white written info at the bottom of image
     for i in range(270, 360):
         for j in range(300, 450):
             image[i, j][0] = 0
@@ -59,19 +63,18 @@ def func_preprocessingImage(image):
     return image
 
 
-
-
 def func_mergingImages(image1, image2):
     image1Hight, image1Width, image1Layar = image1.shape
     colorfulEdgesImg = np.ones([image1Hight, image1Width, 3])
-    for i in range(30, image1Hight-30):
-        for j in range(35, image1Width-35):
-            if image2[i-29, j-34] == 255:
+    for i in range(image1Hight):
+        for j in range(image1Width):
+            if image2[i, j] == 255:
                 colorfulEdgesImg[i, j] = [10, 10, 3]
 
     finalImg = np.multiply(colorfulEdgesImg, image1)
 
     return finalImg
+
 
 # --------------------- CODE: ------------------------------
 is_windows = False
@@ -95,9 +98,24 @@ else:
     finalImage = str(pathlib.Path().absolute())"/image/final-images/image"
 
 
+<< << << < HEAD
+moonFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/moon-images/image"
+monalisaFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/monalisa-images/image"
+resizedMoonFolderAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/resized-moon-images2/image"
+mergedImagesFolderAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/merged-images3/image"
+resizedMonalisaFolderAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/resized-monalisa/image"
+illusionFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/illusion-Images/image"
+resizedIllusionAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/resized-illusion-images/image"
+finalImage = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/final-images/image"
+
+# moonFileNameArray = glob.glob(moonFolderImagesAddress + '*.jpg')
+# monalisaFileNameArray = glob.glob(monalisaFolderImagesAddress + '*.jpg')
+# illusionFileNameArray = glob.glob(illusionFolderImagesAddress + '*.jpg')
+== == == =
 moonFileNameArray = glob.glob(moonFolderImagesAddress + '*.jpg')
 monalisaFileNameArray = glob.glob(monalisaFolderImagesAddress + '*.jpg')
 illusionFileNameArray = glob.glob(illusionFolderImagesAddress + '*.jpg')
+>>>>>> > a9e5e0499a321614862d72cfdf113e1b29259f0f
 
 count = 1
 for i in range(3):
@@ -115,39 +133,42 @@ for i in range(3):
     # print(illusionImg.shape)
 
 # -----process on moon images:
+<< << << < HEAD
+# nesbat = float(monalisaWidth/monalisaHeight)
+== == == =
 
-    nesbat = float(monalisaWidth/monalisaHeight)
-    # print(nesbat)
-    croppedMoonImage = func_sizeChanging(moonImg, 1, 720, 190, 1090, 0)
-    resizedMoonImage = func_sizeChanging(
-        croppedMoonImage, 1, 450, 1, 360, 1)
+nesbat = float(monalisaWidth/monalisaHeight)
+>>>>>> > a9e5e0499a321614862d72cfdf113e1b29259f0f
+# print(nesbat)
+croppedMoonImage = func_sizeChanging(moonImg, 1, 720, 190, 1090, 0)
+resizedMoonImage = func_sizeChanging(croppedMoonImage, 1, 450, 1, 360, 1)
 
-    # print(resizedMoonImage.shape)
+# print(resizedMoonImage.shape)
 
-    preprocessedMoonImg = func_preprocessingImage(resizedMoonImage)
+preprocessedMoonImg = func_preprocessingImage(resizedMoonImage)
 
 # -----process on monalisa images:
-    #monalisaTranslated = func_transformingImage(monalisaImg, 20, 1, moonWidth, moonHeight)
-    newsize = (375, 300)
-    resizedMonalisaImage = cv2.resize(monalisaImg, newsize)
-    edgeMonalisa = cv2.Canny(resizedMonalisaImage, 100, 300)
+# monalisaTranslated = func_transformingImage(monalisaImg, 20, 1, moonWidth, moonHeight)
+newsize = (375, 300)
+resizedMonalisaImage = cv2.resize(monalisaImg, newsize)
+edgeMonalisa = cv2.Canny(resizedMonalisaImage, 20, 200)
 
-    monalisaTranslated = func_transformingImage(
-        edgeMonalisa, 20, 1, moonWidth, moonHeight)
+monalisaTranslated = func_transformingImage(
+    edgeMonalisa, 50, 35, moonWidth, moonHeight)
 
-    mergedImg = func_mergingImages(preprocessedMoonImg, monalisaTranslated)
-    #cv2.imwrite(mergedImagesFolderAddress, mergedImg)
-    #cv2.imwrite("C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/mergedImg" +str(i) + '.jpg', mergedImg)
-    #mergedImgHeight, mergedImgWidth, mergedImgLayers = mergedImg.shape
+mergedImg = func_mergingImages(preprocessedMoonImg, monalisaTranslated)
+ # cv2.imwrite(mergedImagesFolderAddress, mergedImg)
+ # cv2.imwrite("C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/mergedImg" +str(i) + '.jpg', mergedImg)
+ # mergedImgHeight, mergedImgWidth, mergedImgLayers = mergedImg.shape
 
 
 # -----process on illusion images:
-    croppedIllusionImage = func_sizeChanging(illusionImg, 0, 360, 95, 545, 0)
-    illusionImageHeight, illusionImageWidth, illusionImageLayes = croppedIllusionImage.shape
-    #cv2.imwrite("C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/illusion" + str(i) + '.jpg', croppedIllusionImage)
-    # print(croppedIllusionImage.shape)
+ croppedIllusionImage = func_sizeChanging(illusionImg, 0, 360, 95, 545, 0)
+  illusionImageHeight, illusionImageWidth, illusionImageLayes = croppedIllusionImage.shape
+   # cv2.imwrite("C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/illusion" + str(i) + '.jpg', croppedIllusionImage)
+   # print(croppedIllusionImage.shape)
 
-    for x in range(illusionImageHeight - 1):
+   for x in range(illusionImageHeight - 1):
         for y in range(illusionImageWidth - 1):
             # if mergedImage[x, y][0] != 0 and mergedImage[x, y][1] != 0 and mergedImage[x, y][2] != 0:
             if func_isBlack(mergedImg[x, y], 20):
