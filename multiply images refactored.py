@@ -73,7 +73,7 @@ def func_mergingImages(image1, image2):
     return finalImg
 
 # --------------------- CODE: ------------------------------
-is_windows = False
+is_windows = True
 if is_windows:
     moonFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/moon-images/image"
     monalisaFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/monalisa-images/image"
