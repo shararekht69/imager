@@ -60,9 +60,9 @@ def func_isBlack(pixel, tellorance):
 def func_mergingImages(image1, image2):
     image1Hight, image1Width, image1Layar = image1.shape
     colorfulEdgesImg = np.ones([image1Hight, image1Width, 3])
-    for i in range(30, image1Hight-30):
-        for j in range(35, image1Width-35):
-            if image2[i-29, j-34] == 255:
+    for i in range(image1Hight):
+        for j in range(image1Width):
+            if image2[i, j] == 255:
                 colorfulEdgesImg[i, j] = [10, 10, 3]
 
     finalImg = np.multiply(colorfulEdgesImg, image1)
@@ -81,9 +81,9 @@ illusionFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/proje
 resizedIllusionAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/resized-illusion-images/image"
 finalImage = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/final-images/image"
 
-moonFileNameArray = glob.glob(moonFolderImagesAddress + '*.jpg')
-monalisaFileNameArray = glob.glob(monalisaFolderImagesAddress + '*.jpg')
-illusionFileNameArray = glob.glob(illusionFolderImagesAddress + '*.jpg')
+#moonFileNameArray = glob.glob(moonFolderImagesAddress + '*.jpg')
+#monalisaFileNameArray = glob.glob(monalisaFolderImagesAddress + '*.jpg')
+#illusionFileNameArray = glob.glob(illusionFolderImagesAddress + '*.jpg')
 
 count = 1
 for i in range(3):
@@ -101,11 +101,10 @@ for i in range(3):
     # print(illusionImg.shape)
 
 # -----process on moon images:
-    nesbat = float(monalisaWidth/monalisaHeight)
+    #nesbat = float(monalisaWidth/monalisaHeight)
     # print(nesbat)
     croppedMoonImage = func_sizeChanging(moonImg, 1, 720, 190, 1090, 0)
-    resizedMoonImage = func_sizeChanging(
-        croppedMoonImage, 1, 450, 1, 360, 1)
+    resizedMoonImage = func_sizeChanging(croppedMoonImage, 1, 450, 1, 360, 1)
 
     # print(resizedMoonImage.shape)
 
@@ -115,10 +114,10 @@ for i in range(3):
     #monalisaTranslated = func_transformingImage(monalisaImg, 20, 1, moonWidth, moonHeight)
     newsize = (375, 300)
     resizedMonalisaImage = cv2.resize(monalisaImg, newsize)
-    edgeMonalisa = cv2.Canny(resizedMonalisaImage, 100, 300)
+    edgeMonalisa = cv2.Canny(resizedMonalisaImage, 20, 200)
 
     monalisaTranslated = func_transformingImage(
-        edgeMonalisa, 20, 1, moonWidth, moonHeight)
+        edgeMonalisa, 50, 35, moonWidth, moonHeight)
 
     mergedImg = func_mergingImages(preprocessedMoonImg, monalisaTranslated)
     #cv2.imwrite(mergedImagesFolderAddress, mergedImg)
