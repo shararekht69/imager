@@ -65,7 +65,7 @@ def func_mergingImages(image1, image2):
     for i in range(30, image1Hight-30):
         for j in range(35, image1Width-35):
             if image2[i-29, j-34] == 255:
-                colorfulEdgesImg[i, j] = [1, 10, 10]
+                colorfulEdgesImg[i, j] = [10, 10, 3]
 
     finalImg = np.multiply(colorfulEdgesImg, image1)
 
@@ -88,7 +88,7 @@ monalisaFileNameArray = glob.glob(monalisaFolderImagesAddress + '*.jpg')
 illusionFileNameArray = glob.glob(illusionFolderImagesAddress + '*.jpg')
 
 count = 1
-for i in range(600):
+for i in range(3):
     # reading images:
     moonImg = cv2.imread(moonFolderImagesAddress + str(i+2000) + '.jpg')
     monalisaImg = cv2.imread(monalisaFolderImagesAddress + str(i+50) + '.jpg')
@@ -104,7 +104,7 @@ for i in range(600):
 
 # -----process on moon images:
     nesbat = float(monalisaWidth/monalisaHeight)
-    print(nesbat)
+    # print(nesbat)
     croppedMoonImage = func_sizeChanging(moonImg, 1, 720, 190, 1090, 0)
     resizedMoonImage = func_sizeChanging(
         croppedMoonImage, 1, 450, 1, 360, 1)
@@ -117,16 +117,16 @@ for i in range(600):
     #monalisaTranslated = func_transformingImage(monalisaImg, 20, 1, moonWidth, moonHeight)
     newsize = (375, 300)
     resizedMonalisaImage = cv2.resize(monalisaImg, newsize)
-    edgeMonalisa = cv2.Canny(resizedMonalisaImage, 70, 120)
+    edgeMonalisa = cv2.Canny(resizedMonalisaImage, 100, 300)
 
     monalisaTranslated = func_transformingImage(
         edgeMonalisa, 20, 1, moonWidth, moonHeight)
 
     mergedImg = func_mergingImages(preprocessedMoonImg, monalisaTranslated)
     #cv2.imwrite(mergedImagesFolderAddress, mergedImg)
-    cv2.imwrite("C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/mergedImg" +
-                str(i) + '.jpg', mergedImg)
-    # print(mergedImg.shape)
+    #cv2.imwrite("C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/mergedImg" +str(i) + '.jpg', mergedImg)
+    #mergedImgHeight, mergedImgWidth, mergedImgLayers = mergedImg.shape
+
 
 # -----process on illusion images:
     croppedIllusionImage = func_sizeChanging(illusionImg, 0, 360, 95, 545, 0)
@@ -137,7 +137,7 @@ for i in range(600):
     for x in range(illusionImageHeight - 1):
         for y in range(illusionImageWidth - 1):
             # if mergedImage[x, y][0] != 0 and mergedImage[x, y][1] != 0 and mergedImage[x, y][2] != 0:
-            if func_isBlack(mergedImg[x, y], 5):
+            if func_isBlack(mergedImg[x, y], 20):
                 croppedIllusionImage[x, y][0] = mergedImg[x, y][0]
                 croppedIllusionImage[x, y][1] = mergedImg[x, y][1]
                 croppedIllusionImage[x, y][2] = mergedImg[x, y][2]
@@ -145,7 +145,7 @@ for i in range(600):
     cv2.imwrite(finalImage +
                 str(count) + ".jpg", croppedIllusionImage)
 
-    if i % 10 == 0:
-        print("image " + str(count) + " saved!")
+    # if i % 10 == 0:
+    print("image " + str(count) + " saved!")
 
     count = count + 1
