@@ -178,3 +178,5 @@ for i in range(100):
     print("image " + str(count) + " saved!")
 
     count = count + 1
+
+# love u :*
