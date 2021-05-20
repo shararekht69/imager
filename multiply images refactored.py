@@ -10,7 +10,7 @@ def func_sizeChanging(image, x, dest_x, y, dest_y, mode):
 
     if mode == 0:  # Crop imagea=ghghhghg
         changedImage = image[x:dest_x, y:dest_y]
-        #changedImage.astype(np.float16)
+        # changedImage.astype(np.float16)
 
     elif mode == 1:  # resize image for given mode
         dsize = (dest_x, dest_y)
@@ -44,21 +44,22 @@ def func_isBlack(pixel, tellorance):
 def func_preprocessingImage(image):
     height, width, layer = image.shape
 
-    #for i in range(height):
+    # for i in range(height):
     #    for j in range(width):
     #        if func_isBlack(image[i, j], 30):
     #            image[i, j][0] = 0
     #            image[i, j][1] = 0
     #            image[i, j][2] = 0
-    image[np.where((image[:,:,0]<30) & (image[:,:,1]<30) & (image[:,:,2]<30))] = [0,0,0]
+    image[np.where((image[:, :, 0] < 30) & (image[:, :, 1] < 30)
+                   & (image[:, :, 2] < 30))] = [0, 0, 0]
 
     # removing watermarks and white written info at the bottom of image
-    #for i in range(270, 360):
+    # for i in range(270, 360):
     #    for j in range(300, 450):
     #        image[i, j][0] = 0
     #        image[i, j][1] = 0
     #        image[i, j][2] = 0
-    image[270:360,300:450] = np.zeros([360-270,450-300,3])
+    image[270:360, 300:450] = np.zeros([360-270, 450-300, 3])
 
     return image
 
@@ -66,12 +67,12 @@ def func_preprocessingImage(image):
 def func_mergingImages(image1, image2):
     image1Hight, image1Width, image1Layar = image1.shape
     colorfulEdgesImg = np.ones([image1Hight, image1Width, 3])
-    #for i in range(image1Hight):
+    # for i in range(image1Hight):
     #    for j in range(image1Width):
     #        if image2[i, j] == 255:
     #            colorfulEdgesImg[i, j] = [200, 200, 200]
 
-    colorfulEdgesImg[np.where(image2==255)] = [200, 200, 200]
+    colorfulEdgesImg[np.where(image2 == 255)] = [200, 200, 200]
 
     colorfulEdgesImg
     finalImg = np.multiply(colorfulEdgesImg, image1)
@@ -153,7 +154,7 @@ for i in range(10):
     mergedImg = func_mergingImages(preprocessedMoonImg, monalisaTranslated)
     preprocessedMoonImg = None
     monalisaTranslated = None
-    cv2.imwrite("./merged.jpg", mergedImg)
+    #cv2.imwrite("./merged.jpg", mergedImg)
     # cv2.imwrite("C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/mergedImg" +str(i) + '.jpg', mergedImg)
     # mergedImgHeight, mergedImgWidth, mergedImgLayers = mergedImg.shape
 
@@ -164,19 +165,33 @@ for i in range(10):
     illusionImageHeight, illusionImageWidth, illusionImageLayes = croppedIllusionImage.shape
     # cv2.imwrite("C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/illusion" + str(i) + '.jpg', croppedIllusionImage)
     # print(croppedIllusionImage.shape)
-    
-    #for x in range(illusionImageHeight - 1):
+
+    # for x in range(illusionImageHeight - 1):
     #    for y in range(illusionImageWidth - 1):
     #        # if mergedImage[x, y][0] != 0 and mergedImage[x, y][1] != 0 and mergedImage[x, y][2] != 0:
     #        if not (func_isBlack(mergedImg[x, y], 0)):
     #            croppedIllusionImage[x, y][0] = mergedImg[x, y][0]
     #            croppedIllusionImage[x, y][1] = mergedImg[x, y][1]
     #            croppedIllusionImage[x, y][2] = mergedImg[x, y][2]
-    
+
     #np.where(not((mergedImg[:,:,0]<30) & (mergedImg[:,:,1]<30) & (mergedImg[:,:,2]<30)))
-    croppedIllusionImage[np.where((mergedImg[:,:,0]>30) & (mergedImg[:,:,1]>30) & (mergedImg[:,:,2]>30))] = mergedImg[np.where((mergedImg[:,:,0]>30) & (mergedImg[:,:,1]>30) & (mergedImg[:,:,2]>30))]
+    croppedIllusionImage[np.where((mergedImg[:, :, 0] > 30) & (mergedImg[:, :, 1] > 30) & (mergedImg[:, :, 2] > 30))] = mergedImg[np.where(
+        (mergedImg[:, :, 0] > 30) & (mergedImg[:, :, 1] > 30) & (mergedImg[:, :, 2] > 30))]
 
     mergedImg = None
+
+
+# -----writing final image:
+    cv2.imwrite(finalImage1 +
+                str(count) + ".jpg", croppedIllusionImage)
+    if i % 10 == 0:
+        print("image " + str(count) + " saved!")
+
+    count = count + 1
+
+print(str(count)+" - finished: ", datetime.time(datetime.now()))
+
+
 '''
 # ------process on hand images:
     mergedIllusionMoon = cv2.imread(
@@ -204,12 +219,3 @@ for i in range(10):
 
     croppedHandImage = None
 '''
-# -----writing final image:
-cv2.imwrite(finalImage +
-            str(count) + ".jpg", croppedIllusionImage)
-if i % 10 == 0:
-    print("image " + str(count) + " saved!")
-
-count = count + 1
-print( str(count)+" - finished: " ,datetime.time(datetime.now()))
-
