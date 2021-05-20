@@ -10,7 +10,7 @@ def func_sizeChanging(image, x, dest_x, y, dest_y, mode):
 
     if mode == 0:  # Crop imagea=ghghhghg
         changedImage = image[x:dest_x, y:dest_y]
-        changedImage.astype(np.float16)
+        #changedImage.astype(np.float16)
 
     elif mode == 1:  # resize image for given mode
         dsize = (dest_x, dest_y)
@@ -109,7 +109,7 @@ else:
 
 count = 1
 print("start time: ",datetime.time(datetime.now()))
-for i in range(3):
+for i in range(10):
     # reading images:
     #print(i,    illusionFolderImagesAddress + str(i+1) + '.jpg')
     moonImg = cv2.imread(moonFolderImagesAddress +
@@ -205,7 +205,7 @@ for i in range(3):
     croppedHandImage = None
 '''
 # -----writing final image:
-cv2.imwrite(finalImage1 +
+cv2.imwrite(finalImage +
             str(count) + ".jpg", croppedIllusionImage)
 if i % 10 == 0:
     print("image " + str(count) + " saved!")
