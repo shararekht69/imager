@@ -33,7 +33,7 @@ def func_transformingImage(image, x, y, dest_y, dest_x):
 
 def func_isBlack(pixel, tellorance):
     # @Shery: it should be <= tellorance because in grayscale 0 means black, 255 means white
-    #if ((pixel[0] + pixel[1] + pixel[2])/3) <= tellorance:
+    # if ((pixel[0] + pixel[1] + pixel[2])/3) <= tellorance:
     if pixel[0] <= tellorance and pixel[1] <= tellorance and pixel[2] <= tellorance:
         return True
 
@@ -47,7 +47,7 @@ def func_preprocessingImage(image):
     for i in range(height):
         for j in range(width):
             # @shery: use if func_isBlack(image[x,y], 9): instead of following if condition
-            #image = func_isBlack(image[i, j], 9)  # @ehsan: is it ok?
+            # image = func_isBlack(image[i, j], 9)  # @ehsan: is it ok?
             '''
             if (((image[i, j][0] + image[i, j][1] + image[i, j][2])/3) < 10):
                 image[i, j][0] = 0
@@ -76,14 +76,14 @@ def func_mergingImages(image1, image2):
         for j in range(image1Width):
             if image2[i, j] == 255:
                 colorfulEdgesImg[i, j] = [200, 200, 200]
-            
+
     finalImg = np.multiply(colorfulEdgesImg, image1)
-    finalImg[finalImg>255] = 255
+    finalImg[finalImg > 255] = 255
     return finalImg
 
 
 # --------------------- CODE: ------------------------------
-is_windows = False
+is_windows = True
 if is_windows:
     moonFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/moon-images/image"
     monalisaFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/monalisa-images/image"
@@ -95,7 +95,7 @@ if is_windows:
     finalImage = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/final-images/image"
 else:
     moonFolderImagesAddress = "../image/moon-images/image"
-    monalisaFolderImagesAddress ="../image/monalisa-images/image"
+    monalisaFolderImagesAddress = "../image/monalisa-images/image"
     resizedMoonFolderAddress = "../image/resized-moon-images2/image"
     mergedImagesFolderAddress = "../image/merged-images3/image"
     resizedMonalisaFolderAddress = "../image/resized-monalisa/image"
@@ -109,12 +109,15 @@ else:
 #illusionFileNameArray = glob.glob(illusionFolderImagesAddress + '*.jpg')
 
 count = 1
-for i in range(3):
+for i in range(100):
     # reading images:
-    print(i,    illusionFolderImagesAddress + str(i+1) + '.jpg')
-    moonImg = cv2.imread(moonFolderImagesAddress + str(i+2000) + '.jpg')#U: 200
-    monalisaImg = cv2.imread(monalisaFolderImagesAddress + str(i+434) + '.jpg')#U:50
-    illusionImg = cv2.imread(illusionFolderImagesAddress + str(i+1) + '.jpg')#U:1
+    #print(i,    illusionFolderImagesAddress + str(i+1) + '.jpg')
+    moonImg = cv2.imread(moonFolderImagesAddress +
+                         str(i+2000) + '.jpg')  # U: 200
+    monalisaImg = cv2.imread(
+        monalisaFolderImagesAddress + str(i+434) + '.jpg')  # U:50
+    illusionImg = cv2.imread(
+        illusionFolderImagesAddress + str(i+1) + '.jpg')  # U:1
 
 # -----getting images' shapes:
     moonHeight, moonWidth, moonLayers = moonImg.shape
@@ -128,32 +131,38 @@ for i in range(3):
     # nesbat = float(monalisaWidth/monalisaHeight)
     # print(nesbat)
     croppedMoonImage = func_sizeChanging(moonImg, 1, 720, 190, 1090, 0)
+    moonImg = None
     resizedMoonImage = func_sizeChanging(croppedMoonImage, 1, 450, 1, 360, 1)
+    croppedMoonImage = None
 
     # print(resizedMoonImage.shape)
 
     preprocessedMoonImg = func_preprocessingImage(resizedMoonImage)
+    resizedMoonImage = None
 
 # -----process on monalisa images:
-# monalisaTranslated = func_transformingImage(monalisaImg, 20, 1, moonWidth, moonHeight)
+    # monalisaTranslated = func_transformingImage(monalisaImg, 20, 1, moonWidth, moonHeight)
     newsize = (375, 300)
     resizedMonalisaImage = cv2.resize(monalisaImg, newsize)
     edgeMonalisa = cv2.Canny(resizedMonalisaImage, 20, 200)
+    resizedMonalisaImage = None
 
     monalisaTranslated = func_transformingImage(
         edgeMonalisa, 50, 35, moonWidth, moonHeight)
-
+    edgeMonalisa = None
     mergedImg = func_mergingImages(preprocessedMoonImg, monalisaTranslated)
-    cv2.imwrite("./merged.jpg", mergedImg)
-     # cv2.imwrite("C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/mergedImg" +str(i) + '.jpg', mergedImg)
-     # mergedImgHeight, mergedImgWidth, mergedImgLayers = mergedImg.shape
-
+    preprocessedMoonImg = None
+    monalisaTranslated = None
+    #cv2.imwrite("./merged.jpg", mergedImg)
+    # cv2.imwrite("C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/mergedImg" +str(i) + '.jpg', mergedImg)
+    # mergedImgHeight, mergedImgWidth, mergedImgLayers = mergedImg.shape
 
     # -----process on illusion images:
     croppedIllusionImage = func_sizeChanging(illusionImg, 0, 360, 95, 545, 0)
+    illusionImg = None
     illusionImageHeight, illusionImageWidth, illusionImageLayes = croppedIllusionImage.shape
-     # cv2.imwrite("C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/illusion" + str(i) + '.jpg', croppedIllusionImage)
-     # print(croppedIllusionImage.shape)
+    # cv2.imwrite("C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/illusion" + str(i) + '.jpg', croppedIllusionImage)
+    # print(croppedIllusionImage.shape)
     for x in range(illusionImageHeight - 1):
         for y in range(illusionImageWidth - 1):
             # if mergedImage[x, y][0] != 0 and mergedImage[x, y][1] != 0 and mergedImage[x, y][2] != 0:
@@ -161,8 +170,12 @@ for i in range(3):
                 croppedIllusionImage[x, y][0] = mergedImg[x, y][0]
                 croppedIllusionImage[x, y][1] = mergedImg[x, y][1]
                 croppedIllusionImage[x, y][2] = mergedImg[x, y][2]
+    mergedImg = None
     cv2.imwrite(finalImage +
                 str(count) + ".jpg", croppedIllusionImage)
     # if i % 10 == 0:
     print("image " + str(count) + " saved!")
-    count = count + 1 
+
+    count = count + 1
+
+# love u :*
