@@ -89,7 +89,9 @@ if is_windows:
     resizedMonalisaFolderAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/resized-monalisa/image"
     illusionFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/illusion-Images/image"
     resizedIllusionAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/resized-illusion-images/image"
+    handFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/hand image/image"
     finalImage = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/final-images/image"
+    finalImage1 = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/final-images1/image"
 else:
     moonFolderImagesAddress = "../image/moon-images/image"
     monalisaFolderImagesAddress = "../image/monalisa-images/image"
@@ -155,7 +157,8 @@ for i in range(3):
     # cv2.imwrite("C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/mergedImg" +str(i) + '.jpg', mergedImg)
     # mergedImgHeight, mergedImgWidth, mergedImgLayers = mergedImg.shape
 
-    # -----process on illusion images:
+# -----process on illusion images:
+
     croppedIllusionImage = func_sizeChanging(illusionImg, 0, 360, 95, 545, 0)
     illusionImg = None
     illusionImageHeight, illusionImageWidth, illusionImageLayes = croppedIllusionImage.shape
@@ -174,13 +177,39 @@ for i in range(3):
     croppedIllusionImage[np.where((mergedImg[:,:,0]>30) & (mergedImg[:,:,1]>30) & (mergedImg[:,:,2]>30))] = mergedImg[np.where((mergedImg[:,:,0]>30) & (mergedImg[:,:,1]>30) & (mergedImg[:,:,2]>30))]
 
     mergedImg = None
-    cv2.imwrite(finalImage +
-                str(count) + ".jpg", croppedIllusionImage)
-    # if i % 10 == 0:
+'''
+# ------process on hand images:
+    mergedIllusionMoon = cv2.imread(
+        finalImage + str(i+2) + '.jpg')
+
+    handImg = cv2.imread(
+        handFolderImagesAddress + str(i+60) + '.jpg')
+
+    croppedHandImage = func_sizeChanging(handImg, 0, 360, 95, 545, 0)
+    handImg = None
+    handImageHeight, handImageWidth, handImageLayes = croppedHandImage.shape
+    # cv2.imwrite("C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/illusion" + str(i) + '.jpg', croppedIllusionImage)
+    # print(croppedIllusionImage.shape)
+
+    for x in range(handImageHeight - 1):
+        for y in range(handImageWidth - 1):
+            # if mergedImage[x, y][0] != 0 and mergedImage[x, y][1] != 0 and mergedImage[x, y][2] != 0:
+            if not (func_isBlack(croppedHandImage[x, y], 20)):
+                mergedIllusionMoon[x, y][0] = (
+                    1.3*mergedIllusionMoon[x, y][0] + croppedHandImage[x, y][0]) // 3
+                mergedIllusionMoon[x, y][1] = (
+                    1.3*mergedIllusionMoon[x, y][1] + croppedHandImage[x, y][1]) // 3
+                mergedIllusionMoon[x, y][2] = (
+                    1.3*mergedIllusionMoon[x, y][2] + croppedHandImage[x, y][2]) // 3
+
+    croppedHandImage = None
+'''
+# -----writing final image:
+cv2.imwrite(finalImage1 +
+            str(count) + ".jpg", croppedIllusionImage)
+if i % 10 == 0:
     print("image " + str(count) + " saved!")
 
-    count = count + 1
-    print( str(count)+" - finished: " ,datetime.time(datetime.now()))
-
-
+count = count + 1
+print( str(count)+" - finished: " ,datetime.time(datetime.now()))
 
