@@ -3,8 +3,8 @@ import numpy as np
 import glob
 from datetime import datetime
 
-
 # ---------------- FUNCTION: -----------------------
+
 
 def func_sizeChanging(image, x, dest_x, y, dest_y, mode):
 
@@ -59,7 +59,8 @@ def func_preprocessingImage(image):
     #        image[i, j][0] = 0
     #        image[i, j][1] = 0
     #        image[i, j][2] = 0
-    image[270:360, 300:450] = np.zeros([360-270, 450-300, 3])
+    #image[270:360, 300:450] = np.zeros([360-270, 450-300, 3])
+    image[600:680, 800:1280] = np.zeros([680-600, 1280-800, 3])
 
     return image
 
@@ -81,40 +82,24 @@ def func_mergingImages(image1, image2):
 
 
 # --------------------- CODE: ------------------------------
-is_windows = False
-if is_windows:
-    moonFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/moon-images/image"
-    monalisaFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/monalisa-images/image"
-    resizedMoonFolderAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/resized-moon-images2/image"
-    mergedImagesFolderAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/merged-images3/image"
-    resizedMonalisaFolderAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/resized-monalisa/image"
-    illusionFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/illusion-Images/image"
-    resizedIllusionAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/resized-illusion-images/image"
-    handFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/hand image/image"
-    finalImage = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/final-images/image"
-    finalImage1 = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/final-images1/image"
-else:
-    moonFolderImagesAddress = "../image/moon-images/image"
-    monalisaFolderImagesAddress = "../image/monalisa-images/image"
-    resizedMoonFolderAddress = "../image/resized-moon-images2/image"
-    mergedImagesFolderAddress = "../image/merged-images3/image"
-    resizedMonalisaFolderAddress = "../image/resized-monalisa/image"
-    illusionFolderImagesAddress = "../image/illusion-images/image"
-    resizedIllusionAddress = "../image/resized-illusion-images/image"
-    finalImage = "../image/final-images/image"
 
+moonFolderImagesAddress = "../image/moon-images/image"
+monalisaFolderImagesAddress = "../image/monalisa-images/image"
+illusionFolderImagesAddress = "../image/illusion-Images2/image"
+handFolderImagesAddress = "../image/hand image/image"
+finalImage = "../image/final-images/image"
+finalImage1 = "../image/final-images2/image"
 
 #moonFileNameArray = glob.glob(moonFolderImagesAddress + '*.jpg')
 #monalisaFileNameArray = glob.glob(monalisaFolderImagesAddress + '*.jpg')
 #illusionFileNameArray = glob.glob(illusionFolderImagesAddress + '*.jpg')
 
 count = 1
-print("start time: ",datetime.time(datetime.now()))
+print("start time: ", datetime.time(datetime.now()))
 for i in range(10):
     # reading images:
-    #print(i,    illusionFolderImagesAddress + str(i+1) + '.jpg')
     moonImg = cv2.imread(moonFolderImagesAddress +
-                         str(i+2000) + '.jpg')  # U: 200
+                         str(i+1) + '.jpg')  # U: 200
     monalisaImg = cv2.imread(
         monalisaFolderImagesAddress + str(i+434) + '.jpg')  # U:50
     illusionImg = cv2.imread(
@@ -129,42 +114,26 @@ for i in range(10):
     # print(illusionImg.shape)
 
 # -----process on moon images:
-    # nesbat = float(monalisaWidth/monalisaHeight)
-    # print(nesbat)
-    croppedMoonImage = func_sizeChanging(moonImg, 1, 720, 190, 1090, 0)
-    moonImg = None
-    resizedMoonImage = func_sizeChanging(croppedMoonImage, 1, 450, 1, 360, 1)
+
+    preprocessedMoonImg = func_preprocessingImage(moonImg)
     croppedMoonImage = None
 
-    # print(resizedMoonImage.shape)
-
-    preprocessedMoonImg = func_preprocessingImage(resizedMoonImage)
-    resizedMoonImage = None
-
 # -----process on monalisa images:
-    # monalisaTranslated = func_transformingImage(monalisaImg, 20, 1, moonWidth, moonHeight)
-    newsize = (375, 300)
+    newsize = (600, 480)
     resizedMonalisaImage = cv2.resize(monalisaImg, newsize)
     edgeMonalisa = cv2.Canny(resizedMonalisaImage, 20, 200)
     resizedMonalisaImage = None
 
     monalisaTranslated = func_transformingImage(
-        edgeMonalisa, 50, 35, moonWidth, moonHeight)
+        edgeMonalisa, 350, 130, moonWidth, moonHeight)  # 30-35
     edgeMonalisa = None
     mergedImg = func_mergingImages(preprocessedMoonImg, monalisaTranslated)
     preprocessedMoonImg = None
     monalisaTranslated = None
     #cv2.imwrite("./merged.jpg", mergedImg)
-    # cv2.imwrite("C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/mergedImg" +str(i) + '.jpg', mergedImg)
     # mergedImgHeight, mergedImgWidth, mergedImgLayers = mergedImg.shape
 
 # -----process on illusion images:
-
-    croppedIllusionImage = func_sizeChanging(illusionImg, 0, 360, 95, 545, 0)
-    illusionImg = None
-    illusionImageHeight, illusionImageWidth, illusionImageLayes = croppedIllusionImage.shape
-    # cv2.imwrite("C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/illusion" + str(i) + '.jpg', croppedIllusionImage)
-    # print(croppedIllusionImage.shape)
 
     # for x in range(illusionImageHeight - 1):
     #    for y in range(illusionImageWidth - 1):
@@ -175,17 +144,17 @@ for i in range(10):
     #            croppedIllusionImage[x, y][2] = mergedImg[x, y][2]
 
     #np.where(not((mergedImg[:,:,0]<30) & (mergedImg[:,:,1]<30) & (mergedImg[:,:,2]<30)))
-    croppedIllusionImage[np.where((mergedImg[:, :, 0] > 30) & (mergedImg[:, :, 1] > 30) & (mergedImg[:, :, 2] > 30))] = mergedImg[np.where(
+    illusionImg[np.where((mergedImg[:, :, 0] > 30) & (mergedImg[:, :, 1] > 30) & (mergedImg[:, :, 2] > 30))] = mergedImg[np.where(
         (mergedImg[:, :, 0] > 30) & (mergedImg[:, :, 1] > 30) & (mergedImg[:, :, 2] > 30))]
 
     mergedImg = None
 
 
 # -----writing final image:
-    cv2.imwrite(finalImage +
-                str(count) + ".jpg", croppedIllusionImage)
-    if i % 10 == 0:
-        print("image " + str(count) + " saved!")
+    cv2.imwrite(finalImage1 +
+                str(count) + ".jpg", illusionImg)  # croppedIllusionImage)
+    # if i % 10 == 0:
+    #print("image " + str(count) + " saved!")
 
     count = count + 1
 
