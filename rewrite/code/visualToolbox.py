@@ -18,16 +18,15 @@ class visualToolbox:
     def removeColor(img, colorB, colorG, colorR, tellorance):
 
         Height, Width, Layers = img.shape
-        for i in range(Height):
-            for j in range(Width):
 
-                img[600:680, 800:1280] = np.zeros([680-600, 1280-800, 3])
+        img[colorB-tellorance < np.where((img[:, :, 0] < colorB + tellorance) &
+                                         (img[:, :, 1] < tellorance) & (img[:, :, 2] < tellorance))] = [0, 0, 0]
+        img[colorB-tellorance < np.where((img[:, :, 0] < tellorance) &
+                                         (img[:, :, 1] < colorG + tellorance) & (img[:, :, 2] < tellorance))] = [0, 0, 0]
+        img[colorB-tellorance < np.where((img[:, :, 0] < tellorance) &
+                                         (img[:, :, 1] < colorR + tellorance) & (img[:, :, 2] < tellorance))] = [0, 0, 0]
 
-                if img[i, j][0] <= tellorance and img[i, j][1] <= tellorance and img[i, j][2] <= tellorance:
-                    return True
-
-                else:
-                    return False
+        return img
 
     def keepColor(img, colorB, colorG, colorR, tellorance):
 
