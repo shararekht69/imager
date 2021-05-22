@@ -18,17 +18,12 @@ class visualToolbox:
         self.sizeY = size[1] 
         #monalisa_newsize = (600, 480)
 
-    def removeColor(img, colorB, colorG, colorR, tellorance):
+    def removeColor(img, tellorance, color = (0,0,0)):
 
-        Height, Width, Layers = img.shape
-
-        img[colorB-tellorance < np.where((img[:, :, 0] < colorB + tellorance) &
-                                         (img[:, :, 1] < tellorance) & (img[:, :, 2] < tellorance))] = [0, 0, 0]
-        img[colorB-tellorance < np.where((img[:, :, 0] < tellorance) &
-                                         (img[:, :, 1] < colorG + tellorance) & (img[:, :, 2] < tellorance))] = [0, 0, 0]
-        img[colorB-tellorance < np.where((img[:, :, 0] < tellorance) &
-                                         (img[:, :, 1] < colorR + tellorance) & (img[:, :, 2] < tellorance))] = [0, 0, 0]
-
+        #Height, Width, Layers = img.shape
+        b , g, r = color[0], color[1], color[2]
+        img[b-tellorance < np.where((img[:, :, 0] < b + tellorance) & (g - tellorance <img[:, :, 1] < g + tellorance) & (r - tellorance < img[:, :, 2] < r + tellorance))] = [0, 0, 0]
+        
         return img
 
     def keepColor(img, colorB, colorG, colorR, tellorance):
