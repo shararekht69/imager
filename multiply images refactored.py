@@ -182,7 +182,7 @@ for i in range(10):
 
 
 # -----writing final image:
-    cv2.imwrite(finalImage1 +
+    cv2.imwrite(finalImage +
                 str(count) + ".jpg", croppedIllusionImage)
     if i % 10 == 0:
         print("image " + str(count) + " saved!")
