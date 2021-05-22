@@ -3,8 +3,8 @@ import numpy as np
 import glob
 from datetime import datetime
 
-
 # ---------------- FUNCTION: -----------------------
+
 
 def func_sizeChanging(image, x, dest_x, y, dest_y, mode):
 
@@ -88,7 +88,6 @@ illusionFolderImagesAddress = "../media/illusion-Images/image"
 handFolderImagesAddress = "../media/hand image/image"
 finalImage = "../media/final-images/image"
 finalImage1 = "../media/final-images1/image"
-
 
 #moonFileNameArray = glob.glob(moonFolderImagesAddress + '*.jpg')
 #monalisaFileNameArray = glob.glob(monalisaFolderImagesAddress + '*.jpg')
