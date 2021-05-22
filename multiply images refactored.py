@@ -81,27 +81,13 @@ def func_mergingImages(image1, image2):
 
 
 # --------------------- CODE: ------------------------------
-is_windows = True
-if is_windows:
-    moonFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/moon-images/image"
-    monalisaFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/monalisa-images/image"
-    resizedMoonFolderAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/resized-moon-images2/image"
-    mergedImagesFolderAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/merged-images3/image"
-    resizedMonalisaFolderAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/resized-monalisa/image"
-    illusionFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/illusion-Images/image"
-    resizedIllusionAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/resized-illusion-images/image"
-    handFolderImagesAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/hand image/image"
-    finalImage = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/final-images/image"
-    finalImage1 = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/final-images1/image"
-else:
-    moonFolderImagesAddress = "../image/moon-images/image"
-    monalisaFolderImagesAddress = "../image/monalisa-images/image"
-    resizedMoonFolderAddress = "../image/resized-moon-images2/image"
-    mergedImagesFolderAddress = "../image/merged-images3/image"
-    resizedMonalisaFolderAddress = "../image/resized-monalisa/image"
-    illusionFolderImagesAddress = "../image/illusion-images/image"
-    resizedIllusionAddress = "../image/resized-illusion-images/image"
-    finalImage = "../image/final-images/image"
+
+moonFolderImagesAddress = "../media/moon-images/image"
+monalisaFolderImagesAddress = "../media/monalisa-images/image"
+illusionFolderImagesAddress = "../media/illusion-Images/image"
+handFolderImagesAddress = "../media/hand image/image"
+finalImage = "../media/final-images/image"
+finalImage1 = "../media/final-images1/image"
 
 
 #moonFileNameArray = glob.glob(moonFolderImagesAddress + '*.jpg')
@@ -110,11 +96,11 @@ else:
 
 count = 1
 print("start time: ", datetime.time(datetime.now()))
-for i in range(99):
+for i in range(100):
     # reading images:
     #print(i,    illusionFolderImagesAddress + str(i+1) + '.jpg')
     moonImg = cv2.imread(moonFolderImagesAddress +
-                         str(i+2000) + '.jpg')  # U: 200
+                         str(i+1) + '.jpg')  # U: 200
     monalisaImg = cv2.imread(
         monalisaFolderImagesAddress + str(i+434) + '.jpg')  # U:50
     illusionImg = cv2.imread(
@@ -184,8 +170,8 @@ for i in range(99):
 # -----writing final image:
     cv2.imwrite(finalImage1 +
                 str(count) + ".jpg", croppedIllusionImage)
-    if i % 10 == 0:
-        print("image " + str(count) + " saved!")
+    # if i % 10 == 0:
+    #print("image " + str(count) + " saved!")
 
     count = count + 1
 
