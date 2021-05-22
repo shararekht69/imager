@@ -40,8 +40,8 @@ class visualToolbox:
 
         return img
 
-    def mixImage1ThatHasSpecifiedColorWithImage2(image1, image2, type=('add', 'multiply' or 'replace'), color=(0, 0, 0)):
-
+    def mixImage1ThatHasSpecifiedColorWithImage2(image1, image2, type='replace', color=(0, 0, 0)):
+        #type can be 'add', 'multiply' or 'replace'
         if type == "add":
             mergedImg = cv2.add(image1, image2)
 
