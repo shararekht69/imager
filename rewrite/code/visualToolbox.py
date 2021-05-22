@@ -18,7 +18,7 @@ class visualToolbox:
         self.sizeY = size[1] 
         #monalisa_newsize = (600, 480)
 
-    def removeColor(img, tellorance, color = (0,0,0)):
+    def removeColor(self, img, tellorance, color = (0,0,0)):
 
         #Height, Width, Layers = img.shape
         b , g, r = color[0], color[1], color[2]
@@ -29,7 +29,7 @@ class visualToolbox:
         
         return img
 
-    def removeAllButColor(img, tellorance, color = (0,0,0)):
+    def removeAllButColor(self, img, tellorance, color = (0,0,0)):
 
         #Height, Width, Layers = img.shape
         b , g, r = color[0], color[1], color[2]
