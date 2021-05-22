@@ -10,17 +10,15 @@ class visualToolbox:
     sizeX = 0
     sizeY = 0
 
-    def __init__(self, size=(600,480) , inputFolder = "../media/", outputFolder = "../media/"):
+    def __init__(self, size=(600, 480), inputFolder="../media/", outputFolder="../media/"):
 
         self.inputFolder = inputFolder
         self.outputFolder = outputFolder
         self.sizeX = size[0]
-        self.sizeY = size[1] 
+        self.sizeY = size[1]
         #monalisa_newsize = (600, 480)
 
     def removeColor(img, colorB, colorG, colorR, tellorance):
-
-        Height, Width, Layers = img.shape
 
         img[colorB-tellorance < np.where((img[:, :, 0] < colorB + tellorance) &
                                          (img[:, :, 1] < tellorance) & (img[:, :, 2] < tellorance))] = [0, 0, 0]
@@ -37,3 +35,5 @@ class visualToolbox:
             img[:, :, 2] < tellorance))] = [colorB, colorG, colorR]
 
         return img
+
+    def mixImage1ThatHasSpecifiedColorWithImage2(image1, colorB, colorG, colorR, image2, type='add', 'multiply' or 'replace'):
