@@ -5,15 +5,18 @@ import glob
 
 class visualToolbox:
 
-    inputFolder = "../media/"
-    outputFolder = "../media/"
+    inputFolder = ""
+    outputFolder = ""
+    sizeX = 0
+    sizeY = 0
 
-    def __init__(self):
+    def __init__(self, size=(600,480) , inputFolder = "../media/", outputFolder = "../media/"):
 
-        self.inputFolder = ""
-        self.outputFolder = ""
-
-        monalisa_newsize = (600, 480)
+        self.inputFolder = inputFolder
+        self.outputFolder = outputFolder
+        self.sizeX = size[0]
+        self.sizeY = size[1] 
+        #monalisa_newsize = (600, 480)
 
     def removeColor(img, colorB, colorG, colorR, tellorance):
 
