@@ -5,6 +5,7 @@ import numpy as np
 import glob
 import moviepy.editor as mpe
 
+
 print("starting sth great..")
 
 ####################### Functionss: ############################
@@ -22,12 +23,13 @@ def func_imagesToVideo(int_videoNumberin30secPieces, str_imagesFolderAdress, str
         numberOfFrames = len(fileNameArray)
         print(numberOfFrames)
 
-        for i in range(numberOfFrames):
+        for i in range(1, numberOfFrames+1):
+            print(i, str_imagesFolderAdress + str(i) + '.jpg')
             img = cv2.imread(str_imagesFolderAdress + str(i) + '.jpg')
 
             height, width, layers = img.shape
             img_array.append(img)
-            size = (450, 359)
+            size = (450, 360)
         print("creating film "+str(n)+" file...")
         out = cv2.VideoWriter(str_destAdress + '.mp4',
                               cv2.VideoWriter_fourcc(*'mp4v'), 20, size)
@@ -45,8 +47,9 @@ def func_imagesToVideo(int_videoNumberin30secPieces, str_imagesFolderAdress, str
 # ------------------- CODE: -----------------------
 
 
-mergedImagesFolderAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/final-Images/image"
-destAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/final video 4"
+# C: \Users\sharareh\Desktop\code python 3.7.9\project\multiply image\multiply image sample\final-images
+mergedImagesFolderAddress = "final-images1/image"
+destAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/final video 5"
 int_videoNumberin30secPieces = 1
 finalclip = func_imagesToVideo(
     int_videoNumberin30secPieces, mergedImagesFolderAddress, destAddress)
