@@ -22,13 +22,20 @@ class visualToolbox:
 
         #Height, Width, Layers = img.shape
         b , g, r = color[0], color[1], color[2]
-        img[b-tellorance < np.where((img[:, :, 0] < b + tellorance) & (g - tellorance <img[:, :, 1] < g + tellorance) & (r - tellorance < img[:, :, 2] < r + tellorance))] = [0, 0, 0]
+        img[np.where(
+            (b-tellorance < img[:, :, 0] < b + tellorance) &
+            (g - tellorance <img[:, :, 1] < g + tellorance) &
+            (r - tellorance < img[:, :, 2] < r + tellorance))] = [0, 0, 0]
         
         return img
 
-    def keepColor(img, colorB, colorG, colorR, tellorance):
+    def removeAllButColor(img, tellorance, color = (0,0,0)):
 
-        img[np.where((img[:, :, 0] < tellorance) & (img[:, :, 1] < tellorance) & (
-            img[:, :, 2] < tellorance))] = [colorB, colorG, colorR]
-
+        #Height, Width, Layers = img.shape
+        b , g, r = color[0], color[1], color[2]
+        img[np.where(
+            ((b-tellorance > img[:, :, 0]) | ( img[:, :, 0] > b + tellorance)) &
+            ((g-tellorance > img[:, :, 0]) | ( img[:, :, 0] > g + tellorance)) &
+            ((r-tellorance > img[:, :, 0]) | ( img[:, :, 0] > r + tellorance)) )] = [0,0,0]
+            
         return img
