@@ -10,6 +10,7 @@ def func_videoToImage(vidcap, str_destAdress, sec, count):
     builtFrames, image = vidcap.read()
 
     if builtFrames:
+        image = cv2.resize(image, (1280,720))
         cv2.imwrite(str_destAdress +
                     str(count) + ".jpg", image)  # save frame as JPG file
 
@@ -18,13 +19,13 @@ def func_videoToImage(vidcap, str_destAdress, sec, count):
 
 ################# Code: ########################
 
-str_videoAdress = 'C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/image/illusion.mp4'
+str_videoAdress = 'rewrite/media/vids/dance.mp4'
 vidcap = cv2.VideoCapture(str_videoAdress)
 
-str_destAdress = "../image/illusion-images2/image"
+str_destAdress = "rewrite/media/vids/dance/image"
 sec = 1
 # 610
-frameRate = 0.05  # //it will capture image in each 0.5 second
+frameRate = 0.8  # //it will capture image in each 0.5 second
 count = 1
 
 builtFrames = func_videoToImage(vidcap, str_destAdress, sec, count)

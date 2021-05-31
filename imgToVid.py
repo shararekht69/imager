@@ -29,10 +29,10 @@ def func_imagesToVideo(int_videoNumberin30secPieces, str_imagesFolderAdress, str
 
             height, width, layers = img.shape
             img_array.append(img)
-            size = (450, 360)
+            size = (1280, 720)
         print("creating film "+str(n)+" file...")
         out = cv2.VideoWriter(str_destAdress + '.mp4',
-                              cv2.VideoWriter_fourcc(*'mp4v'), 20, size)
+                              cv2.VideoWriter_fourcc(*'mp4v'), 5, size)
 
         for i in range(len(img_array)):
             out.write(img_array[i])
@@ -48,8 +48,8 @@ def func_imagesToVideo(int_videoNumberin30secPieces, str_imagesFolderAdress, str
 
 
 # C: \Users\sharareh\Desktop\code python 3.7.9\project\multiply image\multiply image sample\final-images
-mergedImagesFolderAddress = "final-images1/image"
-destAddress = "C:/Users/sharareh/Desktop/code python 3.7.9/project/multiply image/multiply image sample/final video 5"
+mergedImagesFolderAddress = "rewrite/media/imgs/image"
+destAddress = "rewrite/media/vids/output_dance_18000_10fs"
 int_videoNumberin30secPieces = 1
 finalclip = func_imagesToVideo(
     int_videoNumberin30secPieces, mergedImagesFolderAddress, destAddress)
